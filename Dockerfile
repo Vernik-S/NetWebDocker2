@@ -10,12 +10,11 @@ ARG ALLOWED_HOSTS
 ARG SECRET_KEY
 
 
-RUN python manage.py migrate
-
-RUN python manage.py collectstatic
 
 EXPOSE 8080
 
-CMD gunicorn stocks_products.wsgi -b 0.0.0.0:8080
-#CMD sh
+COPY entrypoint.sh /code/entrypoint.sh
+
+RUN chmod +x /code/entrypoint.sh
+ENTRYPOINT /code/entrypoint.sh
 
